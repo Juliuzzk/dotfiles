@@ -1,0 +1,79 @@
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 16
+
+[font.normal]
+# # family = "SFMono Nerd Font"
+# family = "FiraCode Nerd Font"
+# style = "Regular"
+
+family = "CaskaydiaCove Nerd Font"
+style = "Regular"
+
+#
+# [[keyboard.bindings]]
+# action = "ReceiveChar"
+# key = "F"
+# mode = "~Search"
+# mods = "Control|Shift"
+#
+#
+# [[keyboard.bindings]]
+# action = "ReceiveChar"
+# key = "F"
+# mode = "~Search"
+# mods = "Command"
+#
+# [[keyboard.bindings]]
+# action = "ReceiveChar"
+# key = "B"
+# mode = "~Search"
+# mods = "Control|Shift"
+#
+# [[keyboard.bindings]]
+# action = "ReceiveChar"
+# key = "B"
+# mode = "~Search"
+# mods = "Command"
+
+[[mouse.bindings]]
+action = "ReceiveChar"
+mouse = "Right"
+
+[scrolling]
+history = 0
+
+[selection]
+save_to_clipboard = true
+
+[terminal.shell]
+args = ["-l", "-c", "tmux attach || tmux"]
+program = "/bin/zsh"
+
+[window]
+decorations = "buttonless"
+# decorations = "none"
+dynamic_padding = false
+opacity = 0.95
+# opacity = 1
+decorations_theme_variant = "none"
+
+
+[window.padding]
+x = 10
+y = 10
+
+[general]
+live_config_reload = true
+import = ["~/.config/alacritty/themes/themes/catppuccin_mocha.toml"]
+
+[terminal]
+
+
+# Uncomment for Windows
+#[shell]
+#program = "wsl.exe"
+#args = ["--cd","~"]

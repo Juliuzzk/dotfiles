@@ -1,0 +1,48 @@
+# ------------------------------
+# Configuración de fuente
+# ------------------------------
+font-size = 16
+font-family = "CaskaydiaCove Nerd Font" # Usamos la fuente de Kitty
+# Ajustes de tamaño de la celda
+
+# ------------------------------
+# Configuración de tmux y shell
+# ------------------------------
+command = /bin/zsh -c "tmux new -A -s work"
+# ------------------------------
+# Configuración del editor
+# ------------------------------
+copy-on-select = true
+# ------------------------------
+# Configuración de la ventana
+# ------------------------------
+background-opacity = 0.9
+background-blur-radius = 20
+# window-step-resize = true
+# window-padding-balance = true
+# window-decoration = none
+font-size = 16
+# font-thicken = true
+mouse-hide-while-typing = true
+macos-non-native-fullscreen=visible-menu
+# macos-option-as-alt = true
+macos-titlebar-style = hidden
+window-padding-y = 5
+window-padding-x = 5
+window-save-state = always
+# window-decoration=false
+
+
+# ------------------------------
+# Configuración de cierre de ventana
+# ------------------------------
+
+# ------------------------------
+# Configuración de sonido
+# ------------------------------
+
+
+# ------------------------------
+# Tema
+# ------------------------------
+theme =  catppuccin-mocha

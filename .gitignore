@@ -1,0 +1,8 @@
+
+# Ignorar todas las carpetas listadas
+gtk-2.0/
+linearmouse/
+
+# Excluir el archivo starship.toml del .gitignore
+!starship.toml
+

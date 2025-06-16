@@ -1,0 +1,105 @@
+# Alacritty Colors
+colors:
+  primary:
+    background: "#282a36"
+    foreground: "#f8f8f2"
+    bright_foreground: "#ffffff"
+  cursor:
+    text: CellBackground
+    cursor: CellForeground
+  vi_mode_cursor:
+    text: CellBackground
+    cursor: CellForeground
+  search:
+    matches:
+      foreground: "#44475a"
+      background: "#50fa7b"
+    focused_match:
+      foreground: "#44475a"
+      background: "#ffb86c"
+    footer_bar:
+      background: "#282a36"
+      foreground: "#f8f8f2"
+  hints:
+    start:
+      foreground: "#282a36"
+      background: "#f1fa8c"
+    end:
+      foreground: "#f1fa8c"
+      background: "#282a36"
+  line_indicator:
+    foreground: None
+    background: None
+  selection:
+    text: CellForeground
+    background: "#44475a"
+  normal:
+    black: "#21222c"
+    red: "#ff5555"
+    green: "#50fa7b"
+    yellow: "#f1fa8c"
+    blue: "#bd93f9"
+    magenta: "#ff79c6"
+    cyan: "#8be9fd"
+    white: "#f8f8f2"
+  bright:
+    black: "#6272a4"
+    red: "#ff6e6e"
+    green: "#69ff94"
+    yellow: "#ffffa5"
+    blue: "#d6acff"
+    magenta: "#ff92df"
+    cyan: "#a4ffff"
+    white: "#ffffff"
+
+live_config_reload: true # Reload on save
+
+window:
+  opacity: 0.95
+  padding:
+    x: 16
+    y: 16
+  dynamic_padding: false
+  decorations: buttonless
+
+font:
+  normal:
+    # family: "SFMono Nerd Font"
+    family: "FiraCode Nerd Font"
+    style: Regular
+  size: 15.0
+
+# Iniciar tmux junto con alacritty
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - "tmux attach || tmux"
+env:
+  TERM: xterm-256color
+
+# cursor color
+
+cursor:
+  text: "#000000"
+  cursor: "#ccff00"
+theme: Dracula
+
+# Features not needed because of tmux
+
+key_bindings:
+  # searching
+  - { key: F, mods: Control|Shift, mode: ~Search, action: ReceiveChar }
+  - { key: F, mods: Command, mode: ~Search, action: ReceiveChar }
+  - { key: B, mods: Control|Shift, mode: ~Search, action: ReceiveChar }
+  - { key: B, mods: Command, mode: ~Search, action: ReceiveChar }
+
+mouse_bindings:
+  - { mouse: Right, action: ReceiveChar }
+
+scrolling:
+  history: 0
+
+selection:
+  save_to_clipboard: false
