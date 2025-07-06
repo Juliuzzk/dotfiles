@@ -1,8 +1,10 @@
 
-# Ignorar todas las carpetas listadas
+# Ignorar carpetas listadas
 gtk-2.0/
 linearmouse/
 github-copilot/
+medusa/
+zed/prompts/
 
 # Excluir el archivo starship.toml del .gitignore
 !starship.toml

@@ -7,7 +7,12 @@ return {
             -- add any opts here
             -- for example
             provider = "copilot",
-            providers = {},
+            providers = {
+                copilot = {
+                    -- model = "claude-3.7-sonnet",
+                    model = "gemini-2.5-pro",
+                },
+            },
         },
         -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
         build = "make",
