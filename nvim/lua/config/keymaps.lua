@@ -43,7 +43,7 @@ map("n", "<C-l>", "<C-w>l", default_opts)
 
 -- Back tab
 -- Comentado el dia 20/10
--- map("i", "<S-Tab>", "<C-d>", default_opts)
+map("i", "<S-Tab>", "<C-d>", default_opts)
 
 -- Select with shift + arrows
 map("i", "<S-Left>", "<Left><C-o>v", default_opts)
@@ -104,4 +104,3 @@ map("n", "d", '"_d', { noremap = true, silent = true })
 -- Modo visual: evita sobrescribir el registro cuando borras con `d`
 -- map("v", "x", '"_d', { noremap = true, silent = true })
 map("v", "d", '"_d', { noremap = true, silent = true })
-
