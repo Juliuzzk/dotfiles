@@ -3,8 +3,8 @@ return {
         "mfussenegger/nvim-dap",
         config = function()
             local dap = require("dap")
-            -- 1. Configuración del adaptador para TypeScript/Next.js (usa js-debug-adapter)
 
+            -- Adaptador js-debug (Node)
             dap.adapters["pwa-node"] = {
                 type = "server",
                 host = "localhost",
@@ -21,36 +21,71 @@ return {
                 },
             }
 
-            -- 2. Configuración específica para Next.js
-            dap.configurations.typescript = {
+            local skip = { "<node_internals>/**", "**/node_modules/**" }
+            local resolve_maps = { "**", "!**/node_modules/**" }
+            local out_files = {
+                "${workspaceFolder}/**/*.js",
+                "${workspaceFolder}/**/*.mjs",
+                "${workspaceFolder}/**/*.cjs",
+                "!**/node_modules/**",
+            }
+
+            local cfgs = {
+                -- 1) Lanzar archivo TS actual con ts-node (si tu proyecto lo usa)
                 {
-                    name = "Launch Next.js Dev Server",
+                    name = "Node: Launch current TS (ts-node)",
                     type = "pwa-node",
                     request = "launch",
-                    runtimeExecutable = "npm", -- o "yarn"
+                    runtimeExecutable = "node",
+                    runtimeArgs = { "-r", "ts-node/register/transpile-only", "${file}" },
+                    cwd = "${workspaceFolder}",
+                    console = "integratedTerminal",
+                    sourceMaps = true,
+                    resolveSourceMapLocations = resolve_maps,
+                    skipFiles = skip,
+                },
+                -- 2) Lanzar app vía npm/yarn/pnpm (script 'dev') con inspector
+                {
+                    name = "App: npm run dev (inspect-brk)",
+                    type = "pwa-node",
+                    request = "launch",
+                    runtimeExecutable = "npm", -- cambia a "yarn" o "pnpm" si prefieres
                     runtimeArgs = { "run", "dev" },
                     cwd = "${workspaceFolder}",
-                    skipFiles = { "<node_internals>/**" },
-                    sourceMaps = true,
-                    protocol = "inspector",
                     console = "integratedTerminal",
-                    port = 3000,
+                    sourceMaps = true,
+                    resolveSourceMapLocations = resolve_maps,
+                    skipFiles = skip,
+                    outFiles = out_files,
+                    autoAttachChildProcesses = true,
+                    runtimeArgsCwd = "${workspaceFolder}",
+                    -- Detén en la primera línea para no perder breakpoints tempranos:
+                    -- tip: añade NODE_OPTIONS="--inspect-brk" al script si lo necesitas
+                },
+                -- 3) Adjuntar a un proceso Node ya corriendo (ideal para Next/Nest/etc.)
+                {
+                    name = "Attach: Pick Process",
+                    type = "pwa-node",
+                    request = "attach",
+                    processId = require("dap.utils").pick_process,
+                    cwd = "${workspaceFolder}",
+                    sourceMaps = true,
+                    resolveSourceMapLocations = resolve_maps,
+                    skipFiles = skip,
+                    outFiles = out_files,
                 },
             }
 
-            -- 3. Keymaps (¡agrégalos aquí si no los tienes en otro archivo!)
-            -- vim.keymap.set("n", "<F5>", function()
-            --     dap.continue()
-            -- end, { desc = "Debug: Start/Continue" })
-            -- vim.keymap.set("n", "<F10>", function()
-            --     dap.step_over()
-            -- end, { desc = "Debug: Step Over" })
-            -- vim.keymap.set("n", "<F11>", function()
-            --     dap.step_into()
-            -- end, { desc = "Debug: Step Into" })
-            -- vim.keymap.set("n", "<F12>", function()
-            --     dap.step_out()
-            -- end, { desc = "Debug: Step Out" })
+            for _, ft in ipairs({ "typescript", "typescriptreact", "javascript", "javascriptreact" }) do
+                dap.configurations[ft] = cfgs
+            end
+
+            -- Keymaps (opcionales, cortitos)
+            -- vim.keymap.set("n", "<F5>", dap.continue, { desc = "DAP Start/Continue" })
+            -- vim.keymap.set("n", "<F10>", dap.step_over, { desc = "DAP Step Over" })
+            -- vim.keymap.set("n", "<F11>", dap.step_into, { desc = "DAP Step Into" })
+            -- vim.keymap.set("n", "<F12>", dap.step_out, { desc = "DAP Step Out" })
+            -- vim.keymap.set("n", "<Leader>b", dap.toggle_breakpoint, { desc = "Toggle BP" })
         end,
     },
 
@@ -58,18 +93,13 @@ return {
         "rcarriga/nvim-dap-ui",
         dependencies = { "nvim-neotest/nvim-nio" },
         config = function(_, opts)
-            local dap = require("dap")
             local dapui = require("dapui")
             dapui.setup(opts)
-            -- dap.listeners.after.event_initialized["dapui_config"] = function()
-            --     dapui.open({})
-            -- end
-            -- dap.listeners.before.event_terminated["dapui_config"] = function()
-            --     dapui.close({})
-            -- end
-            -- dap.listeners.before.event_exited["dapui_config"] = function()
-            --     dapui.close({})
-            -- end
+            -- Autoabrir/cerrar (opcional):
+            -- local dap = require("dap")
+            -- dap.listeners.after.event_initialized["dapui"] = function() dapui.open({}) end
+            -- dap.listeners.before.event_terminated["dapui"] = function() dapui.close({}) end
+            -- dap.listeners.before.event_exited["dapui"] = function() dapui.close({}) end
         end,
     },
 }

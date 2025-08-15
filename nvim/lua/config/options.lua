@@ -14,3 +14,5 @@ opt.pumblend = 0
 opt.winblend = 0
 -- Desactiva los números de línea relativa
 opt.relativenumber = false
+-- Desactivar swapfile
+opt.swapfile = false
