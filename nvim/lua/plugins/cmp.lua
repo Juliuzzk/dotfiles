@@ -21,6 +21,10 @@ return {
                 documentation = cmp.config.window.bordered(),
             }
 
+            opts.experimental = {
+                ghost_text = false,
+            }
+
             opts.mapping = vim.tbl_extend("force", opts.mapping, {
                 ["<S-j>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then

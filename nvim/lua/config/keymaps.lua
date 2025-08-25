@@ -104,3 +104,7 @@ map("n", "d", '"_d', { noremap = true, silent = true })
 -- Modo visual: evita sobrescribir el registro cuando borras con `d`
 -- map("v", "x", '"_d', { noremap = true, silent = true })
 map("v", "d", '"_d', { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>ft", function()
+    require("fzf-lua").grep({ search = "TODO:" })
+end, { desc = "Buscar TODOs en el proyecto" })

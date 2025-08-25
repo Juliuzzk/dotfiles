@@ -6,6 +6,9 @@ return {
             dashboard = {
                 enabled = true,
             },
+            terminal = {
+                enabled = false,
+            },
         },
     },
 }

@@ -31,48 +31,18 @@ return {
             }
 
             local cfgs = {
-                -- 1) Lanzar archivo TS actual con ts-node (si tu proyecto lo usa)
                 {
-                    name = "Node: Launch current TS (ts-node)",
+                    name = "Launch: npm run dev",
                     type = "pwa-node",
                     request = "launch",
-                    runtimeExecutable = "node",
-                    runtimeArgs = { "-r", "ts-node/register/transpile-only", "${file}" },
-                    cwd = "${workspaceFolder}",
-                    console = "integratedTerminal",
-                    sourceMaps = true,
-                    resolveSourceMapLocations = resolve_maps,
-                    skipFiles = skip,
-                },
-                -- 2) Lanzar app vía npm/yarn/pnpm (script 'dev') con inspector
-                {
-                    name = "App: npm run dev (inspect-brk)",
-                    type = "pwa-node",
-                    request = "launch",
-                    runtimeExecutable = "npm", -- cambia a "yarn" o "pnpm" si prefieres
+                    runtimeExecutable = "npm",
                     runtimeArgs = { "run", "dev" },
                     cwd = "${workspaceFolder}",
-                    console = "integratedTerminal",
                     sourceMaps = true,
                     resolveSourceMapLocations = resolve_maps,
                     skipFiles = skip,
                     outFiles = out_files,
-                    autoAttachChildProcesses = true,
-                    runtimeArgsCwd = "${workspaceFolder}",
-                    -- Detén en la primera línea para no perder breakpoints tempranos:
-                    -- tip: añade NODE_OPTIONS="--inspect-brk" al script si lo necesitas
-                },
-                -- 3) Adjuntar a un proceso Node ya corriendo (ideal para Next/Nest/etc.)
-                {
-                    name = "Attach: Pick Process",
-                    type = "pwa-node",
-                    request = "attach",
-                    processId = require("dap.utils").pick_process,
-                    cwd = "${workspaceFolder}",
-                    sourceMaps = true,
-                    resolveSourceMapLocations = resolve_maps,
-                    skipFiles = skip,
-                    outFiles = out_files,
+                    console = "integratedTerminal", -- para ver logs en Neovim
                 },
             }
 

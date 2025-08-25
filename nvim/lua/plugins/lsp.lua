@@ -18,7 +18,7 @@ return {
             local keys = require("lazyvim.plugins.lsp.keymaps").get()
             keys[#keys + 1] = { "<c-k>", false, mode = "i" }
             keys[#keys + 1] = {
-                "<leader>fw",
+                "<leader>/",
                 function()
                     require("fzf-lua").live_grep()
                 end,
