@@ -7,6 +7,8 @@
 -----------------------------------------------------------
 
 local map = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
+
 local default_opts = { noremap = true, silent = true }
 
 -----------------------------------------------------------
@@ -105,6 +107,6 @@ map("n", "d", '"_d', { noremap = true, silent = true })
 -- map("v", "x", '"_d', { noremap = true, silent = true })
 map("v", "d", '"_d', { noremap = true, silent = true })
 
-vim.keymap.set("n", "<leader>ft", function()
+keymap("n", "<leader>ft", function()
     require("fzf-lua").grep({ search = "TODO:" })
 end, { desc = "Buscar TODOs en el proyecto" })

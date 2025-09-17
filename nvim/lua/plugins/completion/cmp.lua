@@ -26,7 +26,7 @@ return {
             }
 
             opts.mapping = vim.tbl_extend("force", opts.mapping, {
-                ["<S-j>"] = cmp.mapping(function(fallback)
+                ["<C-j>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
                         cmp.select_next_item()
@@ -38,7 +38,7 @@ return {
                         fallback()
                     end
                 end, { "i", "s" }),
-                ["<S-k>"] = cmp.mapping(function(fallback)
+                ["<C-k>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_prev_item()
                     else
