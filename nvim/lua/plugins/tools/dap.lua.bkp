@@ -1,0 +1,90 @@
+return {
+    {
+        "mfussenegger/nvim-dap",
+        config = function()
+            local dap = require("dap")
+
+            -- Adaptador para Java
+            dap.adapters["java"] = {
+                type = "executable",
+                command = "java",
+                args = {
+                    "-jar",
+                    "/Users/Julio/.vscode/extensions/vscjava.vscode-java-debug-0.58.2/server/com.microsoft.java.debug.plugin-0.53.2.jar", -- Ajusta la ruta
+                },
+            }
+
+            -- Configuración de Java para archivos .java
+            local java_config = {
+                {
+                    type = "java",
+                    request = "attach",
+                    name = "Attach to Spring Boot",
+                    hostName = "127.0.0.1",
+                    port = 5005, -- Puerto utilizado al lanzar Spring Boot
+                },
+            }
+
+            -- Configuración de Node.js para archivos .js y .ts
+            local node_config = {
+                name = "Launch: npm run dev",
+                type = "pwa-node",
+                request = "launch",
+                runtimeExecutable = "npm",
+                runtimeArgs = { "run", "dev" },
+                cwd = "${workspaceFolder}",
+                sourceMaps = true,
+                resolveSourceMapLocations = { "**", "!**/node_modules/**" },
+                skipFiles = { "<node_internals>/**", "**/node_modules/**" },
+                outFiles = {
+                    "${workspaceFolder}/**/*.js",
+                    "${workspaceFolder}/**/*.mjs",
+                    "${workspaceFolder}/**/*.cjs",
+                    "!**/node_modules/**",
+                },
+                console = "integratedTerminal", -- para ver logs en Neovim
+            }
+
+            -- Función para mapear configuraciones por extensión
+            local function map_configurations()
+                -- Asignar configuraciones por extensión
+                dap.configurations["java"] = java_config -- Solo para archivos .java
+                dap.configurations["javascript"] = { node_config }
+                dap.configurations["typescript"] = { node_config }
+                dap.configurations["javascriptreact"] = { node_config }
+                dap.configurations["typescriptreact"] = { node_config }
+            end
+
+            -- Llamamos a la función para aplicar las configuraciones
+            map_configurations()
+
+            -- Configuración de Keymaps para depuración (opcional)
+            -- vim.keymap.set("n", "<F5>", dap.continue, { desc = "DAP Start/Continue" })
+            -- vim.keymap.set("n", "<F10>", dap.step_over, { desc = "DAP Step Over" })
+            -- vim.keymap.set("n", "<F11>", dap.step_into, { desc = "DAP Step Into" })
+            -- vim.keymap.set("n", "<F12>", dap.step_out, { desc = "DAP Step Out" })
+            -- vim.keymap.set("n", "<Leader>b", dap.toggle_breakpoint, { desc = "Toggle BP" })
+        end,
+    },
+
+    -- Interfaz de usuario para DAP
+    {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "nvim-neotest/nvim-nio" },
+        config = function(_, opts)
+            local dapui = require("dapui")
+            dapui.setup(opts)
+            -- Autoabrir/cerrar UI (opcional):
+            local dap = require("dap")
+            dap.listeners.after.event_initialized["dapui"] = function()
+                dapui.open({})
+            end
+            dap.listeners.before.event_terminated["dapui"] = function()
+                dapui.close({})
+            end
+            dap.listeners.before.event_exited["dapui"] = function()
+                dapui.close({})
+            end
+        end,
+    },
+}

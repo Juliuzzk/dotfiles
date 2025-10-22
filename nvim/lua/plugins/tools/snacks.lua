@@ -6,8 +6,7 @@ return {
         opts = {
             dashboard = {
                 enabled = true,
-            },
-            terminal = {
+                terminal = {},
                 enabled = false,
             },
         },

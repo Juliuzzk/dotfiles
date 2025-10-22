@@ -32,13 +32,13 @@ return {
 
         -- { "<leader>nn", "<cmd>ObsidianNew<cr>", desc = "New note" },
         -- { "<leader>ns", "<cmd>ObsidianSearch<cr>", desc = "Search notes" },
-        { "<leader>nt", "<cmd>ObsidianTags<cr>", desc = "List notes by tags" },
+        -- { "<leader>nt", "<cmd>ObsidianTags<cr>", desc = "List notes by tags" },
         -- { "<leader>nn", "createNoteWithDefaultTemplate", desc = "[N]ew Obsidian [N]ote" },
-        {
-            "<leader>nq",
-            "<cmd>ObsidianQuickSwitch<cr>",
-            desc = "Quick switch in obsidian workspace",
-        },
+        -- {
+        --     "<leader>nq",
+        --     "<cmd>ObsidianQuickSwitch<cr>",
+        --     desc = "Quick switch in obsidian workspace",
+        -- },
     },
     opts = {
         workspaces = {

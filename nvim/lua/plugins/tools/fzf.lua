@@ -3,6 +3,17 @@ return {
         "ibhagwan/fzf-lua",
         optional = true,
         opts = function(_, opts)
+            opts.file_ignore_patterns = {
+                ".*/node_modules/.*",
+                ".*/%.git/.*",
+                ".*/build/.*",
+                ".*/dist/.*",
+                "%.bak$",
+                "%.class$",
+                "mvnw%.cmd",
+                "mvnw$",
+                "lazy%-lock%.json",
+            }
             opts.winopts = {
                 preview = {
                     vertical = "up:60%",

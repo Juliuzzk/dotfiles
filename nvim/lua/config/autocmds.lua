@@ -16,3 +16,15 @@ autocmd("Filetype", {
     end,
     desc = "Disable automatic comment continuation on new lines",
 })
+
+autocmd("BufEnter", {
+    group = vim.api.nvim_create_augroup("NoNameClose", { clear = true }),
+    callback = function()
+        local name = vim.api.nvim_buf_get_name(0)
+        local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
+        if name == "" and buftype == "" then
+            vim.cmd("bdelete!")
+        end
+    end,
+    once = true,
+})
