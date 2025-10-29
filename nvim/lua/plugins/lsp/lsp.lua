@@ -13,24 +13,23 @@ return {
             opts.diagnostics.float = {
                 border = "rounded",
             }
-
             -- Añadir configuración para keymaps
-            local keys = require("lazyvim.plugins.lsp.keymaps").get()
-            keys[#keys + 1] = { "<c-k>", false, mode = "i" }
-            keys[#keys + 1] = {
-                "<leader>/",
-                function()
-                    require("fzf-lua").live_grep()
-                end,
-                desc = "Find Word Grep (fzf-lua)",
-            }
-
-            keys[#keys + 1] = {
-                "<leader>ff",
-                function()
-                    require("fzf-lua").files()
-                end,
-                desc = "Find Files (fzf-lua)",
+            opts.keys = {
+                { "<c-k>", false, mode = "i" },
+                {
+                    "<leader>/",
+                    function()
+                        require("fzf-lua").live_grep()
+                    end,
+                    desc = "Find Word Grep (fzf-lua)",
+                },
+                {
+                    "<leader>ff",
+                    function()
+                        require("fzf-lua").files()
+                    end,
+                    desc = "Find Files (fzf-lua)",
+                },
             }
 
             -- Devuelve las opciones combinadas

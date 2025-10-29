@@ -17,14 +17,21 @@ autocmd("Filetype", {
     desc = "Disable automatic comment continuation on new lines",
 })
 
-autocmd("BufEnter", {
-    group = vim.api.nvim_create_augroup("NoNameClose", { clear = true }),
-    callback = function()
-        local name = vim.api.nvim_buf_get_name(0)
-        local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
-        if name == "" and buftype == "" then
-            vim.cmd("bdelete!")
-        end
-    end,
-    once = true,
-})
+-- autocmd("BufEnter", {
+--     group = vim.api.nvim_create_augroup("NoNameClose", { clear = true }),
+--     callback = function(args)
+--         local buf = args.buf
+--         local name = vim.api.nvim_buf_get_name(buf)
+--         local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
+--
+--         -- Si no tiene nombre, no es especial y está vacío, ciérralo
+--         if name == "" and buftype == "" and vim.api.nvim_buf_line_count(buf) == 1 then
+--             local line = vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1]
+--             if line == "" then
+--                 vim.schedule(function()
+--                     vim.api.nvim_buf_delete(buf, { force = true })
+--                 end)
+--             end
+--         end
+--     end,
+-- })

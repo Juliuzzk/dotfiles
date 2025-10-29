@@ -22,7 +22,7 @@ return {
             }
 
             opts.experimental = {
-                ghost_text = true,
+                ghost_text = false,
             }
 
             opts.mapping = vim.tbl_extend("force", opts.mapping, {

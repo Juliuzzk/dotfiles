@@ -13,6 +13,7 @@ return {
                 "mvnw%.cmd",
                 "mvnw$",
                 "lazy%-lock%.json",
+                ".*/target/.*",
             }
             opts.winopts = {
                 preview = {
