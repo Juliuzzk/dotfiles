@@ -32,6 +32,13 @@ return {
                 },
             }
 
+            opts.servers = {
+                sourcekit = {
+                    cmd = {
+                        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp",
+                    },
+                },
+            }
             -- Devuelve las opciones combinadas
             return opts
         end,
